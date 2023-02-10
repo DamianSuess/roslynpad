@@ -250,6 +250,9 @@
                 <Button Content="{StaticResource Rename}"
                         ToolTip="Rename Symbol (F2)"
                         Command="{Binding RenameSymbolCommand, Mode=OneTime}" />
+                <Button Content="{StaticResource ToggleTheme}"
+                        ToolTip="Toggle Light and Dark Mode"
+                        Command="{Binding ToggleThemeCommand, Mode=OneTime}" />
             </ToolBar>
             <editor:RoslynCodeEditor x:Name="Editor"
                                      x:FieldModifier="private"
