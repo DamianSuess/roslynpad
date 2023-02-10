@@ -37,4 +37,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)TextMarkerToolTipProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TextViewExtensions.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)CSharp-Dark.xshd" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)CSharp-Light.xshd" />
+  </ItemGroup>
 </Project>

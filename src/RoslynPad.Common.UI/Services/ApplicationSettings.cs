@@ -133,13 +133,21 @@ internal class ApplicationSettings : IApplicationSettings
         private double? _windowFontSize;
         private bool _formatDocumentOnComment = true;
         private string? _effectiveDocumentPath;
+        private bool _isDarkMode;
 
         public void LoadDefaultSettings()
         {
+            IsDarkMode = false;
             SendErrors = true;
             FormatDocumentOnComment = true;
             EditorFontSize = EditorFontSizeDefault;
             LiveModeDelayMs = LiveModeDelayMsDefault;
+        }
+
+        public bool IsDarkMode
+        {
+            get => _isDarkMode;
+            set => SetProperty(ref _isDarkMode, value);
         }
 
         public bool SendErrors

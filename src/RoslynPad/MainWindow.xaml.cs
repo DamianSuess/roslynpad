@@ -117,6 +117,11 @@ public partial class MainWindow
         {
             FontSize = _viewModel.Settings.WindowFontSize.Value;
         }
+
+        if (_viewModel.Settings.IsDarkMode)
+        {
+            ; // TODO: Set WPF Theme
+        }
     }
 
     private void SaveWindowLayout()

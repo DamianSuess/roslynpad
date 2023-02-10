@@ -35,6 +35,11 @@ class MainWindow : Window
             FontSize = _viewModel.Settings.WindowFontSize.Value;
         }
 
+        if (_viewModel.Settings.IsDarkMode)
+        {
+            ; // TODO: Set Avalonia Theme
+        }
+
         AvaloniaXamlLoader.Load(this);
     }
 

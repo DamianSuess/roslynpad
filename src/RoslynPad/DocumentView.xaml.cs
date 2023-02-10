@@ -77,6 +77,8 @@ public partial class DocumentView : IDisposable
         _viewModel.EditorFocus += (o, e) => Editor.Focus();
         _viewModel.DocumentUpdated += (o, e) => Dispatcher.InvokeAsync(() => Editor.RefreshHighlighting());
 
+        _viewModel.MainViewModel.ThemeChanged += OnThemeChanged;
+
         _viewModel.MainViewModel.EditorFontSizeChanged += OnEditorFontSizeChanged;
         Editor.FontSize = _viewModel.MainViewModel.EditorFontSize;
 
@@ -144,6 +146,14 @@ public partial class DocumentView : IDisposable
         Editor.FontSize = fontSize;
     }
 
+    /// <summary>Editor theme has requested a change</summary>
+    /// <param name="obj"></param>
+    private void OnThemeChanged(bool isDarkMode)
+    {
+        ;
+        //// Editor.RoslynHighlightingColorizer
+    }
+
     private void NuGetOnPackageInstalled(PackageData package)
     {
         _ = Dispatcher.InvokeAsync(() =>
@@ -179,6 +189,7 @@ public partial class DocumentView : IDisposable
         if (_viewModel?.MainViewModel != null)
         {
             _viewModel.MainViewModel.EditorFontSizeChanged -= OnEditorFontSizeChanged;
+            _viewModel.MainViewModel.ThemeChanged -= OnThemeChanged;
         }
     }
 

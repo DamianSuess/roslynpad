@@ -77,8 +77,6 @@ public class OpenDocumentViewModel : NotificationObject
 
     public IDelegateCommand ToggleLiveModeCommand { get; }
 
-    public IDelegateCommand ToggleThemeCommand { get; }
-
     public IDelegateCommand SetDefaultPlatformCommand { get; }
 
     public bool IsLiveMode
@@ -167,7 +165,6 @@ public class OpenDocumentViewModel : NotificationObject
         UncommentSelectionCommand = commands.CreateAsync(() => CommentUncommentSelectionAsync(CommentAction.Uncomment));
         RenameSymbolCommand = commands.CreateAsync(RenameSymbolAsync);
         ToggleLiveModeCommand = commands.Create(() => IsLiveMode = !IsLiveMode);
-        ToggleThemeCommand = commands.Create(ToggleTheme);
         SetDefaultPlatformCommand = commands.Create(SetDefaultPlatform);
 
         ILText = DefaultILText;
@@ -706,11 +703,6 @@ public class OpenDocumentViewModel : NotificationObject
             _results.Clear();
             _results.AddRange(_restoreResults);
         }
-    }
-
-    private void ToggleTheme()
-    {
-        ; // Toggle Light/Dark theme
     }
 
     private OptimizationLevel OptimizationLevel => MainViewModel.Settings.OptimizeCompilation ? OptimizationLevel.Release : OptimizationLevel.Debug;

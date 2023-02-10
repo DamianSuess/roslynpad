@@ -86,6 +86,7 @@ public class MainViewModelBase : NotificationObject
         ReportProblemCommand = commands.Create(ReportProblem);
         EditUserDocumentPathCommand = commands.Create(EditUserDocumentPath);
         ToggleOptimizationCommand = commands.Create(() => Settings.OptimizeCompilation = !Settings.OptimizeCompilation);
+        ToggleThemeCommand = commands.Create(ToggleTheme);
         ClearRestoreCacheCommand = commands.Create(ClearRestoreCache);
 
         _editorFontSize = Settings.EditorFontSize;
@@ -456,6 +457,22 @@ public class MainViewModelBase : NotificationObject
     }
 
     public event Action<double> EditorFontSizeChanged;
+    
+    /// <summary>Theme style has changed. True=Dark, False=Light.</summary>
+    public event Action<bool> ThemeChanged;
+
+    public IDelegateCommand ToggleThemeCommand { get; }
+
+    /// <summary>Toggle between light and dark theme.</summary>
+    public void ToggleTheme()
+    {
+        Settings.IsDarkMode = !Settings.IsDarkMode;
+
+        // TODO: Change window colors scheme
+
+        // Inform editor(s) to update
+        ThemeChanged?.Invoke(Settings.IsDarkMode);
+    }
 
     public DocumentViewModel AddDocument(string documentName)
     {

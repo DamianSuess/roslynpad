@@ -4,6 +4,7 @@ namespace RoslynPad.UI;
 
 public interface IApplicationSettingsValues : INotifyPropertyChanged
 {
+    bool IsDarkMode { get; set; }
     bool SendErrors { get; set; }
     bool EnableBraceCompletion { get; set; }
     string? LatestVersion { get; set; }

@@ -7,6 +7,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Formatting;
+using ICSharpCode.AvalonEdit.Highlighting;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 #if AVALONIA
 using Avalonia;
 using Avalonia.Interactivity;
@@ -38,6 +40,8 @@ public class RoslynCodeEditor : CodeTextEditor
 
     public RoslynCodeEditor()
     {
+        HighlightingManager.Instance.RegisterHighlighting("C#", new[] { ".cs" }, "CSharp-Dark");
+
         _textMarkerService = new TextMarkerService(this);
         TextArea.TextView.BackgroundRenderers.Add(_textMarkerService);
         TextArea.TextView.LineTransformers.Add(_textMarkerService);
@@ -325,4 +329,33 @@ public class CreatingDocumentEventArgs : RoutedEventArgs
     public Action<DiagnosticsUpdatedArgs> ProcessDiagnostics { get; }
 
     public DocumentId? DocumentId { get; set; }
+}
+
+static class ExtensionMethods
+{
+    public static void RegisterHighlighting(this HighlightingManager manager, string name, string[] extensions, string resourceName)
+    {
+        // TODO: Get IsDarkMode from (newly created) ThemeManager
+        resourceName += ".xshd";
+        System.IO.Stream? stream = typeof(RoslynCodeEditor).Assembly
+            .GetManifestResourceStream(typeof(RoslynCodeEditor), resourceName);
+
+        string[] x = typeof(RoslynCodeEditor).Assembly.GetManifestResourceNames();
+        if (x == null)
+        {
+            ;
+        }
+
+        if (stream is not null)
+        {
+            manager.RegisterHighlighting(name, extensions, delegate
+            {
+                using (stream)
+                using (System.Xml.XmlTextReader reader = new System.Xml.XmlTextReader(stream))
+                {
+                    return HighlightingLoader.Load(reader, manager);
+                }
+            });
+        }
+    }
 }
