@@ -17,4 +17,12 @@
       <Link>Shared\%(RecursivePath)%(Filename)%(Extension)</Link>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Themes\CSharp-Dark.xshd" />
+    <None Remove="Themes\CSharp-Light.xshd" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Themes\CSharp-Dark.xshd" />
+    <EmbeddedResource Include="Themes\CSharp-Light.xshd" />
+  </ItemGroup>
 </Project>

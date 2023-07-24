@@ -336,12 +336,19 @@ static class ExtensionMethods
     public static void RegisterHighlighting(this HighlightingManager manager, string name, string[] extensions, string resourceName)
     {
         // TODO: Get IsDarkMode from (newly created) ThemeManager
-        resourceName += ".xshd";
-        System.IO.Stream? stream = typeof(RoslynCodeEditor).Assembly
-            .GetManifestResourceStream(typeof(RoslynCodeEditor), resourceName);
 
-        string[] x = typeof(RoslynCodeEditor).Assembly.GetManifestResourceNames();
-        if (x == null)
+        resourceName = $"RoslynPad.Editor.Themes.{resourceName}.xshd";
+        var assm = typeof(RoslynCodeEditor).Assembly;
+        System.IO.Stream? stream = assm.GetManifestResourceStream(resourceName);
+
+        ////System.IO.Stream? stream = assm.GetManifestResourceStream(typeof(CommonEvent), resourceName);       // Try this?
+        ////System.IO.Stream? stream = assm.GetManifestResourceStream(typeof(RoslynCodeEditor), resourceName);
+        //var assm = System.Reflection.Assembly.GetExecutingAssembly();
+        // var ns = typeof()
+
+        ////string[] resx = System.Reflection.Assembly.LoadFrom("RoslynPad.Roslyn").GetManifestResourceNames();
+        var resx = assm.GetManifestResourceNames();
+        if (resx == null)
         {
             ;
         }
